@@ -2,10 +2,15 @@ package br.com.caelum.tarefas.modelo;
 
 import java.util.Calendar;
 
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.sun.istack.internal.NotNull;
 
 public class Tarefa {
 	private Long id;
+	@NotNull @Size(min=5)
 	private String descricao;
 	private boolean finalizado;
 	
