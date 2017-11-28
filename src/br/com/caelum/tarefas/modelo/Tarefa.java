@@ -13,7 +13,6 @@ public class Tarefa {
 	@NotNull @Size(min=5)
 	private String descricao;
 	private boolean finalizado;
-	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataFinalizacao;
 
