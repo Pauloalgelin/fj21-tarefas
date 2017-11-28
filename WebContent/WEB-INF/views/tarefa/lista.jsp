@@ -7,10 +7,8 @@
 <body>
   <script type="text/javascript">
     function finalizaAgora(id) {
-      $.post("finalizaTarefa", {'id' : id}, function() {
-        // selecionando o elemento html através da 
-        // ID e alterando o HTML dele 
-        $("#tarefa_"+id).html("Finalizado");
+      $.post("finalizaTarefa", {'id' : id}, function(resposta) {
+        $("#tarefa_"+id).html(resposta);
       });
     }
   </script>
@@ -18,7 +16,7 @@
   <script type="text/javascript">
     function remove(id) {
       $.post("removeTarefa", {'id' : id}, function() {
-    	  $("#linha_"+id).hide();
+    	  $("#tarefa_"+id).hide();
       })
     }
   </script>
@@ -37,26 +35,26 @@
     <th>Data de finalização</th>
   </tr>
   <c:forEach items="${tarefas}" var="tarefa">
-    <tr id="linha_${tarefa.id}">
-      <td id="tarefa_mostra"><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
-      <td id="tarefa_remove"><a href="#" onClick="remove(${tarefa.id})">Remover</a></td>
-      <td id="tarefa_id">${tarefa.id}</td>
-      <td id="tarefa_${tarefa.descricao}">${tarefa.descricao}</td>
+    <tr id="tarefa_${tarefa.id}">
+      <td>${tarefa.id}</td>
+      <td>${tarefa.descricao}</td>
       <c:if test="${tarefa.finalizado eq false}">
-        <td id="tarefa_${tarefa.id}">
+        <td>
           <a href="#" onClick="finalizaAgora(${tarefa.id})">
           Finaliza agora!
           </a>
         </td>
       </c:if>
       <c:if test="${tarefa.finalizado eq true}">
-        <td id="tarefa_finalizado">Finalizado</td>
+        <td>Finalizado</td>
       </c:if>
-      <td id="tarefa_${tarefa.dataFinalizacao}">
+      <td>
         <fmt:formatDate 
           value="${tarefa.dataFinalizacao.time}" 
           pattern="dd/MM/yyyy"/>
       </td>
+      <td><a href="#" onClick="remove(${tarefa.id})">Remover</a></td>
+      <td><a href="mostraTarefa?id=${tarefa.id}">Alterar</a></td>
     </tr>
   </c:forEach>
   </table>
