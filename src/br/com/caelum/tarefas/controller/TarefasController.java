@@ -1,5 +1,6 @@
 package br.com.caelum.tarefas.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,11 @@ public class TarefasController {
   }
   
   @RequestMapping("/removeTarefa")
-  public String remove(Tarefa tarefa) {
+  public void remove(long id, HttpServletResponse response) {
+	System.out.println("Chamou com id " + id);
     JdbcTarefaDao dao = new JdbcTarefaDao();
-    dao.remove(tarefa);
-    return "redirect:listaTarefas";
+    dao.remove(dao.buscaPorId(id));
+    response.setStatus(200);
   }
   
   @RequestMapping("/mostraTarefa")
@@ -56,4 +58,13 @@ public class TarefasController {
     dao.altera(tarefa);
     return "redirect:listaTarefas";
   }
+  
+  @RequestMapping("finalizaTarefa")
+  public void finaliza(Long id, HttpServletResponse response) {
+    JdbcTarefaDao dao = new JdbcTarefaDao();
+    dao.finaliza(id);
+    response.setStatus(200);
+    System.out.println("Tarefa finalizada com sucesso!");
+  }
+  
 }
