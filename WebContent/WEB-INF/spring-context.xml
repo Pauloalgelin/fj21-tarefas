@@ -25,9 +25,17 @@
   </bean>
 
   <mvc:interceptors>
-    <bean 
+    <bean
     class=
     "br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
   </mvc:interceptors>
+
+	<context:component-scan base-package="br.com.caelum.tarefas" />
+  <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+      <property name="url" value="jdbc:mysql://localhost/fj21"/>
+      <property name="username" value="root"/>
+      <property name="password" value="pauloaraujo"/>
+  </bean>
 
 </beans>
